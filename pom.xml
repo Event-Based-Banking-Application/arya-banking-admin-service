@@ -43,6 +43,7 @@
     <properties>
         <java.version>17</java.version>
         <spring-cloud.version>2025.0.0</spring-cloud.version>
+        <arya-banking-common-version>1.1.8</arya-banking-common-version>
     </properties>
 
     <repositories>
@@ -136,7 +137,7 @@
         <dependency>
             <groupId>org.arya.banking</groupId>
             <artifactId>arya-banking-common</artifactId>
-            <version>1.1.7</version>
+            <version>${arya-banking-common-version}</version>
         </dependency>
 
         <dependency>
@@ -156,15 +157,15 @@
             <version>1.11.4</version>
         </dependency>
 
-        <!-- OAuth2 client for login support -->
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-oauth2-client</artifactId>
-        </dependency>
-
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-oauth2-resource-server</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>org.keycloak</groupId>
+            <artifactId>keycloak-admin-client</artifactId>
+            <version>26.0.4</version>
         </dependency>
 
     </dependencies>

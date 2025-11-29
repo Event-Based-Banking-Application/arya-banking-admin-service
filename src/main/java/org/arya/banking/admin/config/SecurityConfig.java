@@ -21,8 +21,7 @@ public class SecurityConfig {
 
         httpSecurity.csrf(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests(request ->
-                        request.requestMatchers( "/api/auth/authenticate").permitAll()
-                                .requestMatchers("/internal/**").hasAnyAuthority("ROLE_INTERNAL_SERVICE")
+                        request.requestMatchers("/internal/**").hasAnyAuthority("ROLE_INTERNAL_SERVICE")
                                 .anyRequest().authenticated())
                 .oauth2ResourceServer(oauth2 -> oauth2.jwt(
                         jwt -> jwt.jwtAuthenticationConverter(jwtAuthenticationConverter())));
