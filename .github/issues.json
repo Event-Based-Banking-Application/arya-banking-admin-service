@@ -1,0 +1,55 @@
+[
+  {
+    "service": "Admin Service",
+    "issues": [
+      {
+        "task": "List all users",
+        "description": "Paginated admin API to fetch list of users.",
+        "labels": [
+          "admin",
+          "api"
+        ]
+      },
+      {
+        "task": "Block/unblock users",
+        "description": "Admin API to block or unblock user accounts.",
+        "labels": [
+          "admin",
+          "user-management"
+        ]
+      },
+      {
+        "task": "Update roles",
+        "description": "Modify user roles using Keycloak RBAC.",
+        "labels": [
+          "admin",
+          "keycloak"
+        ]
+      },
+      {
+        "task": "View audit logs",
+        "description": "Access audit logs for compliance and investigation.",
+        "labels": [
+          "admin",
+          "audit"
+        ]
+      },
+      {
+        "task": "Trigger user notifications",
+        "description": "Manually trigger notifications to users.",
+        "labels": [
+          "admin",
+          "notification"
+        ]
+      },
+      {
+        "task": "View system-wide stats",
+        "description": "Dashboard for system statistics such as total users.",
+        "labels": [
+          "admin",
+          "analytics"
+        ]
+      }
+    ]
+  }
+]
