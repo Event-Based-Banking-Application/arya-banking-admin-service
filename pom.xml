@@ -9,11 +9,11 @@
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
     <groupId>org.arya.banking</groupId>
-    <artifactId>arya-banking-template</artifactId>
+    <artifactId>arya-banking-admin-service</artifactId>
     <version>1.0.0</version>
-    <name>arya-banking-template</name>
-    <description>arya-banking-template</description>
-    <url>https://github.com/Event-Based-Banking-Application/arya-banking-common</url>
+    <name>arya-banking-admin-service</name>
+    <description>arya-banking-admin-service</description>
+    <url>https://github.com/Event-Based-Banking-Application/arya-banking-admin-service</url>
 
     <licenses>
         <license>
@@ -34,14 +34,15 @@
     </developers>
 
     <scm>
-        <connection>scm:git:https://github.com/Event-Based-Banking-Application/arya-banking-common</connection>
-        <developerConnection>scm:git@github.com:Event-Based-Banking-Application/arya-banking-common.git</developerConnection>
-        <url>https://github.com/Event-Based-Banking-Application/arya-banking-common</url>
+        <connection>scm:git:https://github.com/Event-Based-Banking-Application/arya-banking-admin-service</connection>
+        <developerConnection>scm:git@github.com:Event-Based-Banking-Application/arya-banking-admin-service.git</developerConnection>
+        <url>https://github.com/Event-Based-Banking-Application/arya-banking-admin-service</url>
         <tag>HEAD</tag>
     </scm>
 
     <properties>
         <java.version>17</java.version>
+        <spring-cloud.version>2025.0.0</spring-cloud.version>
     </properties>
 
     <repositories>
@@ -135,7 +136,7 @@
         <dependency>
             <groupId>org.arya.banking</groupId>
             <artifactId>arya-banking-common</artifactId>
-            <version>1.0.0</version>
+            <version>1.1.7</version>
         </dependency>
 
         <dependency>
