@@ -6,6 +6,7 @@ import org.arya.banking.admin.config.ApiProperties;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.stereotype.Component;
+import org.arya.banking.common.exception.UnAuthorizedException;
 
 import java.util.List;
 import java.util.Set;
@@ -32,7 +33,10 @@ public class RolePermissionValidator {
                 .stream().map(GrantedAuthority::getAuthority)
                         .collect(Collectors.toSet());
 
-        return allowedRoles.stream()
-                .anyMatch(userRoles::contains);
+        boolean hasRole = allowedRoles.stream().anyMatch(userRoles::contains);
+        if (!hasRole) {
+            throw new UnAuthorizedException("User dose not have valid access for this operation");
+        }
+        return true;
     }
 }
