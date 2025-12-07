@@ -4,6 +4,8 @@ import jakarta.ws.rs.core.Response;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.arya.banking.admin.dto.KeyCloakClientResponse;
+import org.arya.banking.admin.dto.KeycloakRole;
+import org.arya.banking.admin.mapper.KeycloakRoleMapper;
 import org.arya.banking.admin.service.KeyCloakManager;
 import org.arya.banking.admin.service.KeyCloakService;
 import org.arya.banking.common.exception.KeyCloakClientAlreadyExists;
@@ -26,6 +28,7 @@ public class KeyCloakServiceImpl implements KeyCloakService  {
     public static final String CLIENT_SECRET = "client-secret";
     public static final String ERROR_OCCURRED_WHILE_CREATING_KEYCLOAK_CLIENT = "Error occurred while creating keycloak client";
     private final KeyCloakManager keyCloakManager;
+    private final KeycloakRoleMapper keycloakRoleMapper;
 
     @Override
     public KeyCloakClientResponse createClient(String clientName) {
@@ -55,4 +58,11 @@ public class KeyCloakServiceImpl implements KeyCloakService  {
 
         return new KeyCloakClientResponse(clientRepresentation.getClientId(), clientRepresentation.getSecret());
     }
+
+    @Override
+    public List<KeycloakRole> getRealmRoles() {
+        return keycloakRoleMapper.toDtoList(keyCloakManager.getKeyCloakInstanceWithRealm().roles().list());
+    }
+
+
 }

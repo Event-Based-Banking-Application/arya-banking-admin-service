@@ -27,7 +27,7 @@ app:
       url: http://localhost:5433
       realm: event-based-banking-service
       client-id: admin-service-client
-      client-secret: x8Oirt1NFrI5fjEy10FfOrBmJi5AJET9
+      client-secret: VsdQP7ohuKPT9NrPWQaHNecVLdgAcfKx
       token-uri: ${app.config.keycloak.url}/realms/${app.config.keycloak.realm}/protocol/openid-connect/token
 
 server:
@@ -36,4 +36,6 @@ server:
 security:
   api-roles:
     create-client:
+      - ROLE_ADMIN
+    query-realm:
       - ROLE_ADMIN
