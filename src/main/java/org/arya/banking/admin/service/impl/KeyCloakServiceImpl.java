@@ -1,5 +1,6 @@
 package org.arya.banking.admin.service.impl;
 
+import jakarta.ws.rs.NotFoundException;
 import jakarta.ws.rs.core.Response;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -8,13 +9,20 @@ import org.arya.banking.admin.dto.KeycloakRole;
 import org.arya.banking.admin.mapper.KeycloakRoleMapper;
 import org.arya.banking.admin.service.KeyCloakManager;
 import org.arya.banking.admin.service.KeyCloakService;
+import org.arya.banking.common.constants.ResponseCodes;
+import org.arya.banking.common.dto.KeyCloakResponse;
 import org.arya.banking.common.exception.KeyCloakClientAlreadyExists;
+import org.arya.banking.common.exception.KeyCloakRealmRoleAlreadyExists;
 import org.arya.banking.common.exception.KeyCloakServiceException;
+import org.keycloak.admin.client.resource.RoleResource;
 import org.keycloak.representations.idm.ClientRepresentation;
+import org.keycloak.representations.idm.RoleRepresentation;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
+import static org.arya.banking.common.constants.ResponseCodes.KEYCLOAK_ROLE_CREATED_200;
 import static org.arya.banking.common.exception.ExceptionCode.ADMIN_KEYCLOAK_CLIENT_ALREADY_EXISTS_409;
 import static org.arya.banking.common.exception.ExceptionCode.ADMIN_KEYCLOAK_CLIENT_CREATION_EXCEPTION_500;
 import static org.arya.banking.common.exception.ExceptionConstants.BAD_REQUEST_ERROR_CODE;
@@ -62,6 +70,26 @@ public class KeyCloakServiceImpl implements KeyCloakService  {
     @Override
     public List<KeycloakRole> getRealmRoles() {
         return keycloakRoleMapper.toDtoList(keyCloakManager.getKeyCloakInstanceWithRealm().roles().list());
+    }
+
+    @Override
+    public KeycloakRole getRealmRoleByName(String roleName) {
+        return keycloakRoleMapper.toDto(keyCloakManager.getKeyCloakInstanceWithRealm().roles().get(roleName).toRepresentation());
+    }
+
+    @Override
+    public KeyCloakResponse createRealmRole(KeycloakRole keycloakRole) {
+
+        RoleResource roleResource = keyCloakManager.getKeyCloakInstanceWithRealm().roles().get(keycloakRole.name());
+        try {
+            roleResource.toRepresentation();
+            throw new KeyCloakRealmRoleAlreadyExists(String.format("Key cloak realm role: %s already exists", keycloakRole.name()));
+        } catch (NotFoundException e) {
+            log.debug("Creating new realm role: {}", keycloakRole.name());
+            RoleRepresentation roleRepresentation = keycloakRoleMapper.toEntity(keycloakRole);
+            keyCloakManager.getKeyCloakInstanceWithRealm().roles().create(roleRepresentation);
+        }
+        return new KeyCloakResponse(KEYCLOAK_ROLE_CREATED_200, "Key cloak Realm Role created successfully");
     }
 
 

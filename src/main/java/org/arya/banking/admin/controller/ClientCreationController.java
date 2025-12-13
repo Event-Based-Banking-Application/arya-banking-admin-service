@@ -18,7 +18,7 @@ public class ClientCreationController {
 
     private final KeyCloakService keyCloakService;
 
-    @PostMapping("/clients")
+    @PostMapping("/inter-service-clients")
     @PreAuthorize("@rolePermissionValidator.hasAnyRole(authentication, 'create-client')")
     public ResponseEntity<KeyCloakClientResponse> createKeyCloakClient(@RequestParam String clientName) {
         return ResponseEntity.ok(keyCloakService.createClient(clientName));

@@ -13,4 +13,8 @@ public interface KeyCloakService {
     KeyCloakClientResponse createClient(String clientName);
 
     List<KeycloakRole> getRealmRoles();
+
+    KeycloakRole getRealmRoleByName(String roleName);
+
+    KeyCloakResponse createRealmRole(KeycloakRole roleName);
 }
