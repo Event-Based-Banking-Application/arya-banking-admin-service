@@ -17,7 +17,9 @@ import org.arya.banking.common.exception.KeyCloakServiceException;
 import org.keycloak.admin.client.resource.RoleResource;
 import org.keycloak.representations.idm.ClientRepresentation;
 import org.keycloak.representations.idm.RoleRepresentation;
+import org.keycloak.representations.idm.UserRepresentation;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Optional;
@@ -30,11 +32,13 @@ import static org.arya.banking.common.exception.ExceptionConstants.CONFLICT_ERRO
 
 @Slf4j
 @Service
+@Transactional
 @RequiredArgsConstructor
 public class KeyCloakServiceImpl implements KeyCloakService  {
 
     public static final String CLIENT_SECRET = "client-secret";
     public static final String ERROR_OCCURRED_WHILE_CREATING_KEYCLOAK_CLIENT = "Error occurred while creating keycloak client";
+    public static final String INTERNAL_SERVICE = "INTERNAL_SERVICE";
     private final KeyCloakManager keyCloakManager;
     private final KeycloakRoleMapper keycloakRoleMapper;
 
@@ -64,23 +68,39 @@ public class KeyCloakServiceImpl implements KeyCloakService  {
         } clientRepresentation = keyCloakManager.getKeyCloakInstanceWithRealm().clients()
                 .findByClientId(clientName).get(0);
 
+        assignServiceAccountsRoles(clientRepresentation.getId(), INTERNAL_SERVICE);
         return new KeyCloakClientResponse(clientRepresentation.getClientId(), clientRepresentation.getSecret());
+    }
+
+    private void assignServiceAccountsRoles(String clientId, String role) {
+
+        UserRepresentation userRepresentation = keyCloakManager.getRealmClient()
+                .get(clientId).getServiceAccountUser();
+
+        RoleRepresentation roleRepresentation = getRoleRepresentation(role);
+
+        keyCloakManager.getRealmUsers().get(userRepresentation.getId()).roles()
+                .realmLevel().add(List.of(roleRepresentation));
     }
 
     @Override
     public List<KeycloakRole> getRealmRoles() {
-        return keycloakRoleMapper.toDtoList(keyCloakManager.getKeyCloakInstanceWithRealm().roles().list());
+        return keycloakRoleMapper.toDtoList(keyCloakManager.getRealmRoles().list());
     }
 
     @Override
     public KeycloakRole getRealmRoleByName(String roleName) {
-        return keycloakRoleMapper.toDto(keyCloakManager.getKeyCloakInstanceWithRealm().roles().get(roleName).toRepresentation());
+        return keycloakRoleMapper.toDto(getRoleRepresentation(roleName));
+    }
+
+    private RoleRepresentation getRoleRepresentation(String roleName) {
+        return keyCloakManager.getRealmRoles().get(roleName).toRepresentation();
     }
 
     @Override
     public KeyCloakResponse createRealmRole(KeycloakRole keycloakRole) {
 
-        RoleResource roleResource = keyCloakManager.getKeyCloakInstanceWithRealm().roles().get(keycloakRole.name());
+        RoleResource roleResource = keyCloakManager.getRealmRoles().get(keycloakRole.name());
         try {
             roleResource.toRepresentation();
             throw new KeyCloakRealmRoleAlreadyExists(String.format("Key cloak realm role: %s already exists", keycloakRole.name()));

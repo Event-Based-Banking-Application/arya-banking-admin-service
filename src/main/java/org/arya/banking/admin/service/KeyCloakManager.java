@@ -4,7 +4,10 @@ import jakarta.annotation.PostConstruct;
 import lombok.Getter;
 import org.keycloak.admin.client.Keycloak;
 import org.keycloak.admin.client.KeycloakBuilder;
+import org.keycloak.admin.client.resource.ClientsResource;
 import org.keycloak.admin.client.resource.RealmResource;
+import org.keycloak.admin.client.resource.RolesResource;
+import org.keycloak.admin.client.resource.UsersResource;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
@@ -44,5 +47,17 @@ public class KeyCloakManager {
 
     public RealmResource getKeyCloakInstanceWithRealm() {
         return keycloak.realm(keyCloakRealm);
+    }
+
+    public ClientsResource getRealmClient() {
+        return getKeyCloakInstanceWithRealm().clients();
+    }
+
+    public RolesResource getRealmRoles() {
+        return getKeyCloakInstanceWithRealm().roles();
+    }
+
+    public UsersResource getRealmUsers() {
+        return getKeyCloakInstanceWithRealm().users();
     }
 }
