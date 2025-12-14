@@ -3,20 +3,14 @@ spring:
     name: arya-banking-admin-service
     database: admin-service
 
+  config:
+    import: configserver:http://localhost:8090
+
   security:
     oauth2:
       resourceserver:
         jwt:
-          jwk-set-uri: ${app.config.keycloak.url}/realms/${app.config.keycloak.realm}/protocol/openid-connect/certs
-
-  data:
-    mongodb:
-      uri: mongodb+srv://admin:ka3k912719@bankingcluster.ayhvgpk.mongodb.net/${spring.application.database}?retryWrites=true&w=majority&appName=bankingCluster
-
-eureka:
-  client:
-    service-url:
-      defaultZone: http://localhost:8761/eureka
+          jwk-set-uri: ${app.config.keycloak.jwk-set-uri}
 
 app:
   metadata:
@@ -28,7 +22,7 @@ app:
       realm: event-based-banking-service
       client-id: admin-service-client
       client-secret: VsdQP7ohuKPT9NrPWQaHNecVLdgAcfKx
-      token-uri: ${app.config.keycloak.url}/realms/${app.config.keycloak.realm}/protocol/openid-connect/token
+      token-uri: ${app.config.keycloak.token-uri}
 
 server:
   port: 8089
