@@ -1,0 +1,35 @@
+spring:
+  application:
+    name: arya-banking-admin-service
+    database: admin-service
+
+  config:
+    import: configserver:http://localhost:8090
+
+  security:
+    oauth2:
+      resourceserver:
+        jwt:
+          jwk-set-uri: ${app.config.keycloak.jwk-set-uri}
+
+app:
+  metadata:
+    versioning:
+      enabled: true
+  config:
+    keycloak:
+      url: http://localhost:5433
+      realm: event-based-banking-service
+      client-id: admin-service-client
+      client-secret: VsdQP7ohuKPT9NrPWQaHNecVLdgAcfKx
+      token-uri: ${app.config.keycloak.token-uri}
+
+server:
+  port: 8089
+
+security:
+  api-roles:
+    create-client:
+      - ROLE_ADMIN
+    query-realm:
+      - ROLE_ADMIN
