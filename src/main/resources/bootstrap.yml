@@ -1,0 +1,28 @@
+spring:
+  application:
+    name: arya-banking-admin-service
+
+  profiles:
+    active: dev
+
+  config:
+    import: vault://
+
+  cloud:
+    config:
+      uri: http://localhost:8090
+
+    vault:
+      uri: http://localhost:8091
+      authentication: APPROLE
+
+      app-role:
+        role-id: bf33aac9-da11-01bb-d1f8-c1c7b3fbf86c
+        secret-id: 7782ee5c-76ad-bc8c-fef0-7738f90bf573
+
+      kv:
+        enabled: true
+        backend: secret
+        default-context: ""
+        application-name: arya-banking/admin-service
+        profile-separator: /
