@@ -8,4 +8,8 @@ public interface VaultOperationService {
     VaultResponseDto createVaultSecret(VaultSecretDto vaultSecretDto);
 
     VaultResponseDto deleteVaultSecret(String service);
+
+    Void getVaultSecret(String service);
+
+    VaultResponseDto updateVaultSecret(VaultSecretDto vaultSecretDto);
 }

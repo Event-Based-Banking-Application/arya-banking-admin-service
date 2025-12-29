@@ -8,7 +8,9 @@ import org.arya.banking.admin.service.VaultOperationService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 
@@ -27,5 +29,17 @@ public class VaultOperationsController {
     @DeleteMapping("/vault-secrets")
     public ResponseEntity<VaultResponseDto> deleteVaultSecret(@RequestParam String service) {
         return ResponseEntity.ok(vaultOperationService.deleteVaultSecret(service));
+    }
+
+    @GetMapping("/vault-secrets")
+    @PreAuthorize("@rolePermissionValidator.hasAnyRole(authentication, 'vault-ops')")
+    public ResponseEntity<Void> getVaultSecret(@RequestParam String service) {
+        return ResponseEntity.ok(vaultOperationService.getVaultSecret(service));
+    }
+
+    @PutMapping("/vault-secrets")
+    @PreAuthorize("@rolePermissionValidator.hasAnyRole(authentication, 'vault-ops')")
+    public ResponseEntity<VaultResponseDto> updateVaultSecret(@RequestBody VaultSecretDto vaultSecretDto) {
+        return ResponseEntity.ok(vaultOperationService.updateVaultSecret(vaultSecretDto));
     }
 }
