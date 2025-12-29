@@ -18,7 +18,7 @@ spring:
 
       app-role:
         role-id: bf33aac9-da11-01bb-d1f8-c1c7b3fbf86c
-        secret-id: 7782ee5c-76ad-bc8c-fef0-7738f90bf573
+        secret-id: 2b6fa670-18ce-801e-42bc-5cc57c4236e4
 
       kv:
         enabled: true

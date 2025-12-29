@@ -43,7 +43,7 @@
     <properties>
         <java.version>17</java.version>
         <spring-cloud.version>2025.0.0</spring-cloud.version>
-        <arya-banking-common-version>1.1.8</arya-banking-common-version>
+        <arya-banking-common-version>1.1.9</arya-banking-common-version>
     </properties>
 
     <repositories>
@@ -181,6 +181,11 @@
         <dependency>
             <groupId>org.springframework.cloud</groupId>
             <artifactId>spring-cloud-starter-vault-config</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>com.fasterxml.jackson.dataformat</groupId>
+            <artifactId>jackson-dataformat-yaml</artifactId>
         </dependency>
 
     </dependencies>
