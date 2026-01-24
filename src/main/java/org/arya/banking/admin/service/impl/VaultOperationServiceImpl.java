@@ -4,18 +4,20 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.arya.banking.admin.dto.VaultResponseDto;
 import org.arya.banking.admin.dto.VaultSecretDto;
-import org.arya.banking.admin.dto.VaultSecretResponseDto;
 import org.arya.banking.admin.service.VaultOperationService;
+import org.arya.banking.common.exception.VaultSecretNotFoundException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.vault.core.*;
 import org.springframework.vault.support.VaultResponse;
 
 import java.util.Collections;
+import java.util.Map;
 
 import static org.arya.banking.common.constants.ResponseCodes.VAULT_SECRET_CREATED_200;
 import static org.arya.banking.common.constants.ResponseCodes.VAULT_SECRET_DELETED_200;
 import static org.arya.banking.common.constants.ResponseCodes.VAULT_SECRET_UPDATED_200;
+import static org.arya.banking.common.utils.CommonUtils.isEmpty;
 
 @Slf4j
 @Service
@@ -45,11 +47,13 @@ public class VaultOperationServiceImpl implements VaultOperationService {
     }
 
     @Override
-    public Void getVaultSecret(String service) {
+    public Map<String, Object> getVaultSecret(String service) {
         vaultKeyValueOperations = getVaultKeyValueOperations();
         VaultResponse vaultResponse = vaultKeyValueOperations.get(getSecretPath(service));
-        log.info("Vault Secret Response: {}", vaultResponse.getData());
-        return null;
+        if (isEmpty(vaultResponse.getData())) {
+            throw new VaultSecretNotFoundException(String.format("Vault secrets for found for service: %s", service));
+        }
+        return vaultResponse.getData();
     }
 
     @Override

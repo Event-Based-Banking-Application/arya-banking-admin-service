@@ -14,6 +14,8 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import java.util.Map;
+
 @AdminRestController
 @RequiredArgsConstructor
 public class VaultOperationsController {
@@ -33,7 +35,7 @@ public class VaultOperationsController {
 
     @GetMapping("/vault-secrets")
     @PreAuthorize("@rolePermissionValidator.hasAnyRole(authentication, 'vault-ops')")
-    public ResponseEntity<Void> getVaultSecret(@RequestParam String service) {
+    public ResponseEntity<Map<String, Object>> getVaultSecret(@RequestParam String service) {
         return ResponseEntity.ok(vaultOperationService.getVaultSecret(service));
     }
 
