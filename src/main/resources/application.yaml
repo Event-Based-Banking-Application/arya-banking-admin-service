@@ -6,7 +6,6 @@ spring:
   config:
     import:
       - configserver:http://localhost:8090
-      - file:${user.home}/.config/${spring.application.name}/vault-param.yml
 
   security:
     oauth2:
@@ -21,9 +20,9 @@ app:
   config:
     keycloak:
       url: http://localhost:5433
-      realm: event-based-banking-service
+      realm: event-based-banking-application
       client-id: admin-service-client
-      client-secret: ${ADMIN_SERVICE_CLIENT_SECRET}
+      client-secret: ${ADMIN.SERVICE.CLIENT.SECRET}
       token-uri: ${app.config.keycloak.token-uri}
 
 server:

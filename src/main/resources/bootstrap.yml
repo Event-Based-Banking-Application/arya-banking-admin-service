@@ -17,11 +17,12 @@ spring:
       authentication: APPROLE
 
       app-role:
-        role-id: bf33aac9-da11-01bb-d1f8-c1c7b3fbf86c
-        secret-id: 79ca345e-d3ff-1bfd-cd76-00459e0e9c02
+        role-id: 56f12350-0ada-4904-fd4f-950b7ce713fe
+        secret-id: 48d80e1a-d1ae-8c0f-e14e-c2b0f2124751
       kv:
         enabled: true
         backend: secret
+        kv-version: 2
         default-context: ""
         application-name: arya-banking/admin-service
         profile-separator: /
