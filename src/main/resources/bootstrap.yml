@@ -6,7 +6,7 @@ spring:
     active: dev
 
   config:
-    import: vault://
+    import: "optional:file:./vault-credentials.yml"
 
   cloud:
     config:
@@ -16,9 +16,6 @@ spring:
       uri: http://localhost:8091
       authentication: APPROLE
 
-      app-role:
-        role-id: 56f12350-0ada-4904-fd4f-950b7ce713fe
-        secret-id: 48d80e1a-d1ae-8c0f-e14e-c2b0f2124751
       kv:
         enabled: true
         backend: secret
