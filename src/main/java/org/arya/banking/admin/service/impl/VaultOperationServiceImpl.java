@@ -64,7 +64,7 @@ public class VaultOperationServiceImpl implements VaultOperationService {
     }
 
     private String getSecretPath(String serviceName) {
-        return ARYA_BANKING + serviceName + DEV;
+        return ARYA_BANKING + serviceName;
     }
 
 
