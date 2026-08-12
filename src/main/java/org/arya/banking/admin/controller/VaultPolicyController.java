@@ -2,10 +2,10 @@ package org.arya.banking.admin.controller;
 
 import lombok.RequiredArgsConstructor;
 import org.arya.banking.admin.annotation.AdminRestController;
+import org.arya.banking.admin.annotation.AllowedRoles;
 import org.arya.banking.admin.dto.VaultResponseDto;
 import org.arya.banking.admin.service.VaultPolicyService;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -14,6 +14,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import java.io.IOException;
 import java.util.List;
 
+import static org.arya.banking.admin.annotation.AdminOperations.VAULT_OPS;
+
 @AdminRestController
 @RequiredArgsConstructor
 public class VaultPolicyController {
@@ -21,19 +23,19 @@ public class VaultPolicyController {
     private final VaultPolicyService vaultPolicyService;
 
     @GetMapping("/vault/policies")
-    @PreAuthorize("@rolePermissionValidator.hasAnyRole(authentication, 'vault-ops')")
+    @AllowedRoles(VAULT_OPS)
     public ResponseEntity<List<String>> getVaultPolicies() {
         return ResponseEntity.ok(vaultPolicyService.getPolicies());
     }
 
     @PostMapping("/vault/policies")
-    @PreAuthorize("@rolePermissionValidator.hasAnyRole(authentication, 'vault-ops')")
+    @AllowedRoles(VAULT_OPS)
     public ResponseEntity<VaultResponseDto> uploadPolicy(@RequestParam String service) throws IOException {
         return ResponseEntity.ok(vaultPolicyService.uploadPolicy(service));
     }
 
     @DeleteMapping("/vault/policies")
-    @PreAuthorize("@rolePermissionValidator.hasAnyRole(authentication, 'vault-ops')")
+    @AllowedRoles(VAULT_OPS)
     public ResponseEntity<VaultResponseDto> deletePolicy(@RequestParam String service) {
         return ResponseEntity.ok(vaultPolicyService.deletePolicy(service));
     }

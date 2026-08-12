@@ -2,6 +2,7 @@ package org.arya.banking.admin.controller;
 
 import lombok.RequiredArgsConstructor;
 import org.arya.banking.admin.annotation.AdminRestController;
+import org.arya.banking.admin.annotation.AllowedRoles;
 import org.arya.banking.admin.dto.VaultResponseDto;
 import org.arya.banking.admin.dto.VaultSecretDto;
 import org.arya.banking.admin.service.VaultOperationService;
@@ -16,6 +17,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.Map;
 
+import static org.arya.banking.admin.annotation.AdminOperations.VAULT_OPS;
+
 @AdminRestController
 @RequiredArgsConstructor
 public class VaultOperationsController {
@@ -23,18 +26,19 @@ public class VaultOperationsController {
     private final VaultOperationService vaultOperationService;
 
     @PostMapping("/vault-secrets")
-    @PreAuthorize("@rolePermissionValidator.hasAnyRole(authentication, 'vault-ops')")
+    @AllowedRoles(VAULT_OPS)
     public ResponseEntity<VaultResponseDto> createVaultSecret(@RequestBody VaultSecretDto vaultSecretDto) {
         return ResponseEntity.ok(vaultOperationService.createVaultSecret(vaultSecretDto));
     }
 
     @DeleteMapping("/vault-secrets")
+    @AllowedRoles(VAULT_OPS)
     public ResponseEntity<VaultResponseDto> deleteVaultSecret(@RequestParam String service) {
         return ResponseEntity.ok(vaultOperationService.deleteVaultSecret(service));
     }
 
     @GetMapping("/vault-secrets")
-    @PreAuthorize("@rolePermissionValidator.hasAnyRole(authentication, 'vault-ops')")
+    @AllowedRoles(VAULT_OPS)
     public ResponseEntity<Map<String, Object>> getVaultSecret(@RequestParam String service) {
         return ResponseEntity.ok(vaultOperationService.getVaultSecret(service));
     }

@@ -16,12 +16,16 @@ import java.util.stream.Collectors;
 @Configuration
 public class SecurityConfig {
 
+    public static final String ROLE_INTERNAL_SERVICE = "ROLE_INTERNAL_SERVICE";
+    public static final String ROLE_ADMIN = "ROLE_ADMIN";
+
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity httpSecurity) throws Exception {
 
         httpSecurity.csrf(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests(request ->
-                        request.requestMatchers("/internal/**").hasAnyAuthority("ROLE_INTERNAL_SERVICE")
+                        request.requestMatchers("/internal/**").hasAnyAuthority(ROLE_INTERNAL_SERVICE)
+                                .requestMatchers("/api/admin/**").hasAuthority(ROLE_ADMIN)
                                 .requestMatchers("/swagger-ui/**", "/v3/api-docs/**", "/webjars/**").permitAll()
                                 .anyRequest().authenticated())
                 .oauth2ResourceServer(oauth2 -> oauth2.jwt(
