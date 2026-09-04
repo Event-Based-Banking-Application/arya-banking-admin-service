@@ -2,6 +2,7 @@ spring:
   application:
     name: arya-banking-admin-service
     database: admin-service
+    mongo-password: ${MONGO.PASSWORD}
 
   config:
     import:
