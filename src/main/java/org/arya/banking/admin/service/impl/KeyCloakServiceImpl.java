@@ -9,11 +9,11 @@ import org.arya.banking.admin.dto.KeycloakRole;
 import org.arya.banking.admin.mapper.KeycloakRoleMapper;
 import org.arya.banking.admin.service.KeyCloakManager;
 import org.arya.banking.admin.service.KeyCloakService;
-import org.arya.banking.common.constants.ResponseCodes;
-import org.arya.banking.common.dto.KeyCloakResponse;
-import org.arya.banking.common.exception.KeyCloakClientAlreadyExists;
-import org.arya.banking.common.exception.KeyCloakRealmRoleAlreadyExists;
-import org.arya.banking.common.exception.KeyCloakServiceException;
+import org.arya.banking.common.core.constants.ResponseCodes;
+import org.arya.banking.common.core.dto.KeyCloakResponse;
+import org.arya.banking.common.core.exception.KeyCloakClientAlreadyExists;
+import org.arya.banking.common.core.exception.KeyCloakRealmRoleAlreadyExists;
+import org.arya.banking.common.core.exception.KeyCloakServiceException;
 import org.keycloak.admin.client.resource.RoleResource;
 import org.keycloak.representations.idm.ClientRepresentation;
 import org.keycloak.representations.idm.RoleRepresentation;
@@ -24,11 +24,11 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.List;
 import java.util.Optional;
 
-import static org.arya.banking.common.constants.ResponseCodes.KEYCLOAK_ROLE_CREATED_200;
-import static org.arya.banking.common.exception.ExceptionCode.ADMIN_KEYCLOAK_CLIENT_ALREADY_EXISTS_409;
-import static org.arya.banking.common.exception.ExceptionCode.ADMIN_KEYCLOAK_CLIENT_CREATION_EXCEPTION_500;
-import static org.arya.banking.common.exception.ExceptionConstants.BAD_REQUEST_ERROR_CODE;
-import static org.arya.banking.common.exception.ExceptionConstants.CONFLICT_ERROR_CODE;
+import static org.arya.banking.common.core.constants.ResponseCodes.KEYCLOAK_ROLE_CREATED_200;
+import static org.arya.banking.common.core.exception.ExceptionCode.ADMIN_KEYCLOAK_CLIENT_ALREADY_EXISTS_409;
+import static org.arya.banking.common.core.exception.ExceptionCode.ADMIN_KEYCLOAK_CLIENT_CREATION_EXCEPTION_500;
+import static org.arya.banking.common.core.exception.ExceptionConstants.BAD_REQUEST_ERROR_CODE;
+import static org.arya.banking.common.core.exception.ExceptionConstants.CONFLICT_ERROR_CODE;
 
 @Slf4j
 @Service

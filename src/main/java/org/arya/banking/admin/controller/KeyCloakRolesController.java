@@ -5,7 +5,7 @@ import org.arya.banking.admin.annotation.AdminRestController;
 import org.arya.banking.admin.annotation.AllowedRoles;
 import org.arya.banking.admin.dto.KeycloakRole;
 import org.arya.banking.admin.service.KeyCloakService;
-import org.arya.banking.common.dto.KeyCloakResponse;
+import org.arya.banking.common.core.dto.KeyCloakResponse;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;

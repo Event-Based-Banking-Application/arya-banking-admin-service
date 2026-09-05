@@ -2,10 +2,9 @@ package org.arya.banking.admin.service.impl;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.apache.kafka.common.protocol.types.Field;
 import org.arya.banking.admin.dto.VaultResponseDto;
 import org.arya.banking.admin.service.VaultPolicyService;
-import org.arya.banking.common.utils.CommonUtils;
+import org.arya.banking.common.core.utils.CommonUtils;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.vault.core.VaultTemplate;
@@ -16,7 +15,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 
-import static org.arya.banking.common.utils.CommonUtils.loadConfig;
+import static org.arya.banking.common.core.utils.CommonUtils.loadConfig;
 
 @Slf4j
 @Service

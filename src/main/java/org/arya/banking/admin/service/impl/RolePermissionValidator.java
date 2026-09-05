@@ -6,13 +6,13 @@ import org.arya.banking.admin.config.ApiProperties;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.stereotype.Component;
-import org.arya.banking.common.exception.UnAuthorizedException;
+import org.arya.banking.common.core.exception.UnAuthorizedException;
 
 import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
 
-import static org.arya.banking.common.utils.CommonUtils.isEmpty;
+import static org.arya.banking.common.core.utils.CommonUtils.isEmpty;
 
 @Slf4j
 @Component("rolePermissionValidator")

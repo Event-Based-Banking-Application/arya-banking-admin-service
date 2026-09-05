@@ -8,7 +8,7 @@ import org.arya.banking.admin.dto.VaultApiResponseDto;
 import org.arya.banking.admin.dto.VaultResponseDto;
 import org.arya.banking.admin.mapper.VaultResponseMapper;
 import org.arya.banking.admin.service.VaultAppRoleService;
-import org.arya.banking.common.exception.RoleIdNotFoundException;
+import org.arya.banking.common.core.exception.RoleIdNotFoundException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.vault.VaultException;

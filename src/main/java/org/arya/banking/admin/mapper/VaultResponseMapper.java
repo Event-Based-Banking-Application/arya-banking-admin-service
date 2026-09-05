@@ -1,7 +1,7 @@
 package org.arya.banking.admin.mapper;
 
 import org.arya.banking.admin.dto.VaultApiResponseDto;
-import org.arya.banking.common.mapper.BaseMapper;
+import org.arya.banking.common.core.mapper.BaseMapper;
 import org.mapstruct.Mapper;
 import org.springframework.vault.support.VaultResponse;
 

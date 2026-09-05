@@ -5,7 +5,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.arya.banking.admin.dto.VaultResponseDto;
 import org.arya.banking.admin.dto.VaultSecretDto;
 import org.arya.banking.admin.service.VaultOperationService;
-import org.arya.banking.common.exception.VaultSecretNotFoundException;
+import org.arya.banking.common.core.exception.VaultSecretNotFoundException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.vault.core.*;
@@ -14,10 +14,10 @@ import org.springframework.vault.support.VaultResponse;
 import java.util.Collections;
 import java.util.Map;
 
-import static org.arya.banking.common.constants.ResponseCodes.VAULT_SECRET_CREATED_200;
-import static org.arya.banking.common.constants.ResponseCodes.VAULT_SECRET_DELETED_200;
-import static org.arya.banking.common.constants.ResponseCodes.VAULT_SECRET_UPDATED_200;
-import static org.arya.banking.common.utils.CommonUtils.isEmpty;
+import static org.arya.banking.common.core.constants.ResponseCodes.VAULT_SECRET_CREATED_200;
+import static org.arya.banking.common.core.constants.ResponseCodes.VAULT_SECRET_DELETED_200;
+import static org.arya.banking.common.core.constants.ResponseCodes.VAULT_SECRET_UPDATED_200;
+import static org.arya.banking.common.core.utils.CommonUtils.isEmpty;
 
 @Slf4j
 @Service
