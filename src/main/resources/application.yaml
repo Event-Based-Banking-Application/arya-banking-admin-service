@@ -37,3 +37,14 @@ security:
       - ROLE_ADMIN
     vault-ops:
       - ROLE_ADMIN
+    kafka-ops:
+      - ROLE_ADMIN
+
+confluent:
+  kafka:
+    api:
+      key: ${CONFLUENT.KAFKA.API.KEY}
+      secret: ${CONFLUENT.KAFKA.API.SECRET}
+    schema:
+      key: ${CONFLUENT.KAFKA.SCHEMA.KEY}
+      secret: ${CONFLUENT.KAFKA.SCHEMA.SECRET}

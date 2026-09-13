@@ -34,8 +34,8 @@ public class VaultOperationServiceImpl implements VaultOperationService {
     public VaultResponseDto createVaultSecret(VaultSecretDto vaultSecretDto) {
 
         vaultKeyValueOperations = getVaultKeyValueOperations();
-        vaultKeyValueOperations.put(getSecretPath(vaultSecretDto.service()),
-                Collections.singletonMap(vaultSecretDto.secretKey(), vaultSecretDto.secretValue()));
+        vaultSecretDto.secrets().forEach(
+                secret ->  vaultKeyValueOperations.put(getSecretPath(vaultSecretDto.service()), Collections.singletonMap(secret.key(), secret.secret())));
         return new VaultResponseDto(VAULT_SECRET_CREATED_200, "Vault Secret created successfully");
     }
 
@@ -59,7 +59,8 @@ public class VaultOperationServiceImpl implements VaultOperationService {
     @Override
     public VaultResponseDto updateVaultSecret(VaultSecretDto vaultSecretDto) {
         vaultKeyValueOperations = getVaultKeyValueOperations();
-        vaultKeyValueOperations.patch(getSecretPath(vaultSecretDto.service()), Collections.singletonMap(vaultSecretDto.secretKey(), vaultSecretDto.secretValue()));
+        vaultSecretDto.secrets().forEach(
+                secret ->  vaultKeyValueOperations.patch(getSecretPath(vaultSecretDto.service()), Collections.singletonMap(secret.key(), secret.secret())));
         return new VaultResponseDto(VAULT_SECRET_UPDATED_200, "Vault Secret updated successfully");
     }
 

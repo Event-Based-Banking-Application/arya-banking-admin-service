@@ -44,7 +44,7 @@ public class VaultOperationsController {
     }
 
     @PutMapping("/vault-secrets")
-    @PreAuthorize("@rolePermissionValidator.hasAnyRole(authentication, 'vault-ops')")
+    @AllowedRoles(VAULT_OPS)
     public ResponseEntity<VaultResponseDto> updateVaultSecret(@RequestBody VaultSecretDto vaultSecretDto) {
         return ResponseEntity.ok(vaultOperationService.updateVaultSecret(vaultSecretDto));
     }
