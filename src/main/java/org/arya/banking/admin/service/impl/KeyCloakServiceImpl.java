@@ -9,7 +9,6 @@ import org.arya.banking.admin.dto.KeycloakRole;
 import org.arya.banking.admin.mapper.KeycloakRoleMapper;
 import org.arya.banking.admin.service.KeyCloakManager;
 import org.arya.banking.admin.service.KeyCloakService;
-import org.arya.banking.common.core.constants.ResponseCodes;
 import org.arya.banking.common.core.dto.KeyCloakResponse;
 import org.arya.banking.common.core.exception.KeyCloakClientAlreadyExists;
 import org.arya.banking.common.core.exception.KeyCloakRealmRoleAlreadyExists;
@@ -22,7 +21,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
-import java.util.Optional;
 
 import static org.arya.banking.common.core.constants.ResponseCodes.KEYCLOAK_ROLE_CREATED_200;
 import static org.arya.banking.common.core.exception.ExceptionCode.ADMIN_KEYCLOAK_CLIENT_ALREADY_EXISTS_409;
